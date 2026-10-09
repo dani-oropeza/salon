@@ -1,0 +1,19 @@
+{
+  "_comment": "Config para preview/dev server de Mundo Aventura",
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mundo-aventura-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "mundo-aventura-prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "start", "-p", "3102"],
+      "port": 3102
+    }
+  ]
+}

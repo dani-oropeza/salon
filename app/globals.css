@@ -1,0 +1,411 @@
+@import "tailwindcss";
+
+/* ===========================================================
+   Mundo Aventura — sistema de diseño
+   Dirección: "aventura en la selva" cálida y luminosa.
+   Base arena/crema (como la piedra del templo), selva profunda
+   para los momentos inmersivos, ámbar de las luces LED y naranja
+   atardecer del letrero como llamado a la acción.
+   Tipografía: Fredoka (display redondeada, semicondensada para
+   evocar el logo) + Nunito Sans (lectura cómoda). Mobile-first.
+   Contraste verificado (WCAG AA): ink-soft/sand-50 6.9:1,
+   ink/sunset 6.9:1, cream/jungle-900 15:1, leaf-600/sand-50 4.9:1.
+   =========================================================== */
+
+:root {
+  --sand-50: #fbf6ee;
+  --sand-100: #f4eadb;
+  --sand-200: #e9dac1;
+  --sand-300: #d8c29c;
+  --cream: #fbf6ee;
+
+  --ink: #1e1a14;
+  --ink-soft: #5e5446;
+
+  --jungle-950: #0b1a11;
+  --jungle-900: #10241a;
+  --jungle-800: #173322;
+  --jungle-700: #1f5133;
+  --leaf-500: #8bc063;
+  --leaf-600: #3f7a2a;
+  --olive: #6b6f3a;
+
+  --wood: #7a4a26;
+  --wood-dark: #4a2c17;
+
+  --amber: #f2b04a;
+  --sunset: #f08a2c;
+  --sunset-600: #b84e17;
+  --sunset-700: #9a4013;
+
+  --wa: #25d366;
+}
+
+@theme inline {
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-300: var(--sand-300);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-jungle-950: var(--jungle-950);
+  --color-jungle-900: var(--jungle-900);
+  --color-jungle-800: var(--jungle-800);
+  --color-jungle-700: var(--jungle-700);
+  --color-leaf-500: var(--leaf-500);
+  --color-leaf-600: var(--leaf-600);
+  --color-olive: var(--olive);
+  --color-wood: var(--wood);
+  --color-wood-dark: var(--wood-dark);
+  --color-amber: var(--amber);
+  --color-sunset: var(--sunset);
+  --color-sunset-600: var(--sunset-600);
+  --color-sunset-700: var(--sunset-700);
+  --color-wa: var(--wa);
+
+  --color-background: var(--sand-50);
+  --color-foreground: var(--ink);
+
+  --font-sans: var(--font-nunito-sans), system-ui, "Segoe UI", Arial, sans-serif;
+  --font-display: var(--font-fredoka), var(--font-nunito-sans), system-ui, sans-serif;
+
+  --shadow-soft: 0 18px 40px -22px rgb(30 26 20 / 0.35);
+  --shadow-lift: 0 28px 60px -28px rgb(30 26 20 / 0.45);
+  --shadow-glow: 0 18px 50px -18px rgb(240 138 44 / 0.55);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+[role="button"],
+label[for],
+summary {
+  cursor: pointer;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Altura del navbar (h-16) + un respiro, para que las anclas no
+     queden tapadas. */
+  scroll-padding-top: 4.5rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  /* "clip" evita el desborde horizontal sin crear contenedor de scroll
+     (que rompería la navegación por anclas). */
+  overflow-x: clip;
+}
+
+body {
+  background: var(--sand-50);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display redondeada y semicondensada: eco de las letras del logo. */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  font-stretch: 92%;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Etiqueta de sección (versalitas + tracking) */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---- Greca maya: motivo de la piedra tallada del templo ----
+   Se pinta con currentColor gracias a mask-image. */
+.greca {
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16' viewBox='0 0 24 16' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M0 15h24M4 15V3h14v9H9V7h5'/%3E%3C/svg%3E")
+    repeat-x left center / 24px 16px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16' viewBox='0 0 24 16' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M0 15h24M4 15V3h14v9H9V7h5'/%3E%3C/svg%3E")
+    repeat-x left center / 24px 16px;
+}
+
+/* Textura de papel/piedra muy tenue para las secciones claras. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.36 0 0 0 0 0.25 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Brillo cálido de los LED del templo sobre fondos oscuros. */
+.glow-amber {
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgb(242 176 74 / 0.18), transparent 70%),
+    radial-gradient(40% 40% at 90% 100%, rgb(139 192 99 / 0.1), transparent 70%);
+}
+
+/* Entrada del hero (CSS puro: no retrasa la hidratación ni el LCP). */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+/* ---- Selva animada (identidad) ---- */
+
+/* Flecos de hojas entre secciones (la selva "se derrama") */
+.leaf-fringe {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cpath d='M0 0h120v6H0z'/%3E%3Cpath d='M2 4Q4 30 13 40Q20 28 22 4zM20 4Q22 40 34 58Q44 38 46 4zM44 4Q48 22 57 30Q64 20 66 4zM62 4Q66 34 79 48Q88 32 90 4zM88 4Q92 28 104 40Q112 26 114 4zM110 4Q114 22 120 26V4z'/%3E%3C/svg%3E") repeat-x left top / 120px 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cpath d='M0 0h120v6H0z'/%3E%3Cpath d='M2 4Q4 30 13 40Q20 28 22 4zM20 4Q22 40 34 58Q44 38 46 4zM44 4Q48 22 57 30Q64 20 66 4zM62 4Q66 34 79 48Q88 32 90 4zM88 4Q92 28 104 40Q112 26 114 4zM110 4Q114 22 120 26V4z'/%3E%3C/svg%3E") repeat-x left top / 120px 100%;
+}
+.leaf-fringe-back {
+  -webkit-mask-position: 46px top;
+  mask-position: 46px top;
+  -webkit-mask-size: 150px 100%;
+  mask-size: 150px 100%;
+}
+
+/* Lianas que se mecen desde su anclaje */
+@keyframes sway {
+  from {
+    transform: rotate(-2.6deg);
+  }
+  to {
+    transform: rotate(2.6deg);
+  }
+}
+.animate-sway {
+  transform-origin: 50% 0;
+  animation: sway 7s ease-in-out infinite alternate;
+}
+
+/* Péndulo (mono en la liana) */
+@keyframes pendulum {
+  from {
+    transform: rotate(9deg);
+  }
+  to {
+    transform: rotate(-9deg);
+  }
+}
+.animate-pendulum {
+  transform-origin: 50% 0;
+  animation: pendulum 2.8s ease-in-out infinite alternate;
+}
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(-16deg);
+  }
+  80% {
+    transform: rotate(10deg);
+  }
+  90% {
+    transform: rotate(-10deg);
+  }
+}
+.monkey-wave {
+  transform-box: fill-box;
+  transform-origin: 100% 40%;
+  animation: wave 4.5s ease-in-out infinite;
+}
+
+/* Luciérnagas: deriva lenta + titileo */
+@keyframes firefly-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+@keyframes firefly-blink {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.firefly {
+  animation: firefly-drift 9s ease-in-out infinite;
+}
+.firefly-glow {
+  background: #ffd27a;
+  box-shadow:
+    0 0 6px 2px rgb(255 196 92 / 0.8),
+    0 0 16px 6px rgb(242 176 74 / 0.35);
+  animation: firefly-blink 3s ease-in-out infinite;
+}
+
+/* Tiki: flota, parpadea y mueve la boca al hablar */
+@keyframes tiki-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg);
+  }
+}
+.tiki-bob {
+  animation: tiki-bob 3.6s ease-in-out infinite;
+}
+@keyframes tiki-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.12);
+  }
+}
+.tiki-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tiki-blink 4.2s ease-in-out infinite;
+}
+@keyframes tiki-talk {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.84);
+  }
+}
+.tiki-mouth {
+  transform-box: fill-box;
+  transform-origin: 50% 30%;
+}
+.tiki-mouth.is-talking {
+  animation: tiki-talk 0.16s ease-in-out infinite alternate;
+}
+
+/* Secciones fuera de pantalla: animaciones decorativas en pausa */
+[data-paused] .animate-sway,
+[data-paused] .animate-pendulum,
+[data-paused] .monkey-wave,
+[data-paused] .firefly,
+[data-paused] .firefly-glow,
+[data-paused] .tiki-bob,
+[data-paused] .tiki-eye {
+  animation-play-state: paused;
+}
+
+/* Liana que se dibuja bajo el titular */
+@keyframes draw-on {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.draw-on {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-on 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.5s forwards;
+}
+@keyframes leaf-pop {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.leaf-pop {
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  transform: scale(0);
+  animation: leaf-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--sunset) 40%, transparent);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--sunset);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Inputs de fecha nativos con la tipografía del sitio. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
